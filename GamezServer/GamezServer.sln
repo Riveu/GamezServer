@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamezServer.Console", "GamezServer.Console\GamezServer.Console.csproj", "{5DB436E1-3363-4016-B271-8624C6CCC98F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamezServer.Library", "GamezServer.Library\GamezServer.Library.csproj", "{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DB436E1-3363-4016-B271-8624C6CCC98F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB436E1-3363-4016-B271-8624C6CCC98F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB436E1-3363-4016-B271-8624C6CCC98F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB436E1-3363-4016-B271-8624C6CCC98F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
