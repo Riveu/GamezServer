@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GamezServer.Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace GamezServer.Console
     {
         static void Main(string[] args)
         {
-
+            WebServer webserver = new WebServer();
+            webserver.Start();
         }
     }
 }
