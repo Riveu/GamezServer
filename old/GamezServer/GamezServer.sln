@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamezServer.Console", "Game
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamezServer.Library", "GamezServer.Library\GamezServer.Library.csproj", "{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riveu.GamezServer.ASPNET", "Riveu.GamezServer.ASPNET\Riveu.GamezServer.ASPNET.csproj", "{B1EC7706-EF59-4005-A6C2-3C8F67A14486}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Riveu.GamezServer.Service", "Riveu.GamezServer.Service\Riveu.GamezServer.Service.csproj", "{DCC85143-A17F-4C5C-91DC-6AA6F9C16578}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6DDFC6D-1B24-486F-BA46-81E8C3699F58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EC7706-EF59-4005-A6C2-3C8F67A14486}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EC7706-EF59-4005-A6C2-3C8F67A14486}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EC7706-EF59-4005-A6C2-3C8F67A14486}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1EC7706-EF59-4005-A6C2-3C8F67A14486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCC85143-A17F-4C5C-91DC-6AA6F9C16578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCC85143-A17F-4C5C-91DC-6AA6F9C16578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCC85143-A17F-4C5C-91DC-6AA6F9C16578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCC85143-A17F-4C5C-91DC-6AA6F9C16578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

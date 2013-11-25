@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -34,8 +35,7 @@ namespace GamezServer.Library
             HttpListenerResponse response = context.Response;
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-            sb.Append("<h1>Home Page</h1><br /><input type=button onClick=\"parent.location='/settings/'\" value='Settings Page'>");
+            sb.Append(GetResourceFileContent("HTML/Home.html"));
 
             string responseString = sb.ToString();
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
@@ -63,6 +63,20 @@ namespace GamezServer.Library
                 outputStream.Write(buffer, 0, buffer.Length);
             }
             settingsListener.BeginGetContext(new AsyncCallback(SettingsPage), null);
+        }
+
+        private string GetResourceFileContent(string source)
+        {
+            string result = String.Empty;
+            try
+            {
+                result = new StreamReader(source).ReadToEnd();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error getting data from resource file: " + ex.Message);
+            }
+            return result;
         }
     }
 }
