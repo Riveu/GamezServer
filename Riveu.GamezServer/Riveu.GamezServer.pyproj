@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>cb8467a7-c84e-4887-8588-426eed178623</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>GamezServer.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Riveu.GamezServer</Name>
+    <RootNamespace>Riveu.GamezServer</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="cherrypy\lib\auth.py" />
+    <Compile Include="cherrypy\lib\auth_basic.py" />
+    <Compile Include="cherrypy\lib\auth_digest.py" />
+    <Compile Include="cherrypy\lib\caching.py" />
+    <Compile Include="cherrypy\lib\covercp.py" />
+    <Compile Include="cherrypy\lib\cpstats.py" />
+    <Compile Include="cherrypy\lib\cptools.py" />
+    <Compile Include="cherrypy\lib\encoding.py" />
+    <Compile Include="cherrypy\lib\gctools.py" />
+    <Compile Include="cherrypy\lib\http.py" />
+    <Compile Include="cherrypy\lib\httpauth.py" />
+    <Compile Include="cherrypy\lib\httputil.py" />
+    <Compile Include="cherrypy\lib\jsontools.py" />
+    <Compile Include="cherrypy\lib\profiler.py" />
+    <Compile Include="cherrypy\lib\reprconf.py" />
+    <Compile Include="cherrypy\lib\sessions.py" />
+    <Compile Include="cherrypy\lib\static.py" />
+    <Compile Include="cherrypy\lib\xmlrpcutil.py" />
+    <Compile Include="cherrypy\lib\__init__.py" />
+    <Compile Include="cherrypy\process\plugins.py" />
+    <Compile Include="cherrypy\process\servers.py" />
+    <Compile Include="cherrypy\process\win32.py" />
+    <Compile Include="cherrypy\process\wspbus.py" />
+    <Compile Include="cherrypy\process\__init__.py" />
+    <Compile Include="cherrypy\scaffold\__init__.py" />
+    <Compile Include="cherrypy\test\benchmark.py" />
+    <Compile Include="cherrypy\test\checkerdemo.py" />
+    <Compile Include="cherrypy\test\helper.py" />
+    <Compile Include="cherrypy\test\logtest.py" />
+    <Compile Include="cherrypy\test\modfastcgi.py" />
+    <Compile Include="cherrypy\test\modfcgid.py" />
+    <Compile Include="cherrypy\test\modpy.py" />
+    <Compile Include="cherrypy\test\modwsgi.py" />
+    <Compile Include="cherrypy\test\sessiondemo.py" />
+    <Compile Include="cherrypy\test\test_auth_basic.py" />
+    <Compile Include="cherrypy\test\test_auth_digest.py" />
+    <Compile Include="cherrypy\test\test_bus.py" />
+    <Compile Include="cherrypy\test\test_caching.py" />
+    <Compile Include="cherrypy\test\test_compat.py" />
+    <Compile Include="cherrypy\test\test_config.py" />
+    <Compile Include="cherrypy\test\test_config_server.py" />
+    <Compile Include="cherrypy\test\test_conn.py" />
+    <Compile Include="cherrypy\test\test_core.py" />
+    <Compile Include="cherrypy\test\test_dynamicobjectmapping.py" />
+    <Compile Include="cherrypy\test\test_encoding.py" />
+    <Compile Include="cherrypy\test\test_etags.py" />
+    <Compile Include="cherrypy\test\test_http.py" />
+    <Compile Include="cherrypy\test\test_httpauth.py" />
+    <Compile Include="cherrypy\test\test_httplib.py" />
+    <Compile Include="cherrypy\test\test_json.py" />
+    <Compile Include="cherrypy\test\test_logging.py" />
+    <Compile Include="cherrypy\test\test_mime.py" />
+    <Compile Include="cherrypy\test\test_misc_tools.py" />
+    <Compile Include="cherrypy\test\test_objectmapping.py" />
+    <Compile Include="cherrypy\test\test_proxy.py" />
+    <Compile Include="cherrypy\test\test_refleaks.py" />
+    <Compile Include="cherrypy\test\test_request_obj.py" />
+    <Compile Include="cherrypy\test\test_routes.py" />
+    <Compile Include="cherrypy\test\test_session.py" />
+    <Compile Include="cherrypy\test\test_sessionauthenticate.py" />
+    <Compile Include="cherrypy\test\test_states.py" />
+    <Compile Include="cherrypy\test\test_static.py" />
+    <Compile Include="cherrypy\test\test_tools.py" />
+    <Compile Include="cherrypy\test\test_tutorials.py" />
+    <Compile Include="cherrypy\test\test_virtualhost.py" />
+    <Compile Include="cherrypy\test\test_wsgiapps.py" />
+    <Compile Include="cherrypy\test\test_wsgi_ns.py" />
+    <Compile Include="cherrypy\test\test_wsgi_vhost.py" />
+    <Compile Include="cherrypy\test\test_xmlrpc.py" />
+    <Compile Include="cherrypy\test\webtest.py" />
+    <Compile Include="cherrypy\test\_test_decorators.py" />
+    <Compile Include="cherrypy\test\_test_states_demo.py" />
+    <Compile Include="cherrypy\test\__init__.py" />
+    <Compile Include="cherrypy\tutorial\bonus-sqlobject.py" />
+    <Compile Include="cherrypy\tutorial\tut01_helloworld.py" />
+    <Compile Include="cherrypy\tutorial\tut02_expose_methods.py" />
+    <Compile Include="cherrypy\tutorial\tut03_get_and_post.py" />
+    <Compile Include="cherrypy\tutorial\tut04_complex_site.py" />
+    <Compile Include="cherrypy\tutorial\tut05_derived_objects.py" />
+    <Compile Include="cherrypy\tutorial\tut06_default_method.py" />
+    <Compile Include="cherrypy\tutorial\tut07_sessions.py" />
+    <Compile Include="cherrypy\tutorial\tut08_generators_and_yield.py" />
+    <Compile Include="cherrypy\tutorial\tut09_files.py" />
+    <Compile Include="cherrypy\tutorial\tut10_http_errors.py" />
+    <Compile Include="cherrypy\tutorial\__init__.py" />
+    <Compile Include="cherrypy\wsgiserver\ssl_builtin.py" />
+    <Compile Include="cherrypy\wsgiserver\ssl_pyopenssl.py" />
+    <Compile Include="cherrypy\wsgiserver\wsgiserver2.py" />
+    <Compile Include="cherrypy\wsgiserver\wsgiserver3.py" />
+    <Compile Include="cherrypy\wsgiserver\__init__.py" />
+    <Compile Include="cherrypy\_cpchecker.py" />
+    <Compile Include="cherrypy\_cpcompat.py" />
+    <Compile Include="cherrypy\_cpcompat_subprocess.py" />
+    <Compile Include="cherrypy\_cpconfig.py" />
+    <Compile Include="cherrypy\_cpdispatch.py" />
+    <Compile Include="cherrypy\_cperror.py" />
+    <Compile Include="cherrypy\_cplogging.py" />
+    <Compile Include="cherrypy\_cpmodpy.py" />
+    <Compile Include="cherrypy\_cpnative_server.py" />
+    <Compile Include="cherrypy\_cpreqbody.py" />
+    <Compile Include="cherrypy\_cprequest.py" />
+    <Compile Include="cherrypy\_cpserver.py" />
+    <Compile Include="cherrypy\_cpthreadinglocal.py" />
+    <Compile Include="cherrypy\_cptools.py" />
+    <Compile Include="cherrypy\_cptree.py" />
+    <Compile Include="cherrypy\_cpwsgi.py" />
+    <Compile Include="cherrypy\_cpwsgi_server.py" />
+    <Compile Include="cherrypy\__init__.py" />
+    <Compile Include="GamezServer.py" />
+    <Compile Include="GamezServer\GamezServerDao.py" />
+    <Compile Include="GamezServer\Logger.py" />
+    <Compile Include="GamezServer\RiveuServer.py" />
+    <Compile Include="GamezServer\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="cherrypy\" />
+    <Folder Include="cherrypy\lib\" />
+    <Folder Include="cherrypy\process\" />
+    <Folder Include="cherrypy\scaffold\" />
+    <Folder Include="cherrypy\scaffold\static\" />
+    <Folder Include="cherrypy\test\" />
+    <Folder Include="cherrypy\test\static\" />
+    <Folder Include="cherrypy\tutorial\" />
+    <Folder Include="cherrypy\wsgiserver\" />
+    <Folder Include="GamezServer\" />
+    <Folder Include="web_resources\" />
+    <Folder Include="web_resources\css\" />
+    <Folder Include="web_resources\css\excite-bike\" />
+    <Folder Include="web_resources\css\excite-bike\images\" />
+    <Folder Include="web_resources\css\images\" />
+    <Folder Include="web_resources\images\" />
+    <Folder Include="web_resources\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cherrypy\cherryd" />
+    <Content Include="cherrypy\favicon.ico" />
+    <Content Include="cherrypy\LICENSE.txt" />
+    <Content Include="cherrypy\scaffold\apache-fcgi.conf" />
+    <Content Include="cherrypy\scaffold\example.conf" />
+    <Content Include="cherrypy\scaffold\site.conf" />
+    <Content Include="cherrypy\scaffold\static\made_with_cherrypy_small.png" />
+    <Content Include="cherrypy\test\static\dirback.jpg" />
+    <Content Include="cherrypy\test\static\has space.html" />
+    <Content Include="cherrypy\test\static\index.html" />
+    <Content Include="cherrypy\test\style.css" />
+    <Content Include="cherrypy\test\test.pem" />
+    <Content Include="cherrypy\tutorial\custom_error.html" />
+    <Content Include="cherrypy\tutorial\pdf_file.pdf" />
+    <Content Include="cherrypy\tutorial\README.txt" />
+    <Content Include="cherrypy\tutorial\tutorial.conf" />
+    <Content Include="web_resources\css\demo_page.css" />
+    <Content Include="web_resources\css\demo_table.css" />
+    <Content Include="web_resources\css\demo_table_jui.css" />
+    <Content Include="web_resources\css\excite-bike\images\animated-overlay.gif" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_diagonals-small_25_c5ddfc_40x40.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_diagonals-thick_20_e69700_40x40.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_diagonals-thick_22_1484e6_40x40.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_diagonals-thick_26_2293f7_40x40.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_flat_0_e69700_40x100.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_flat_0_e6b900_40x100.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_highlight-soft_100_f9f9f9_1x100.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-bg_inset-hard_100_eeeeee_1x100.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-icons_0a82eb_256x240.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-icons_0b54d5_256x240.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-icons_5fa5e3_256x240.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-icons_fcdd4a_256x240.png" />
+    <Content Include="web_resources\css\excite-bike\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="web_resources\css\excite-bike\jquery-ui-1.10.3.custom.css" />
+    <Content Include="web_resources\css\excite-bike\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="web_resources\css\html5-reset.css" />
+    <Content Include="web_resources\css\images\pattern.png" />
+    <Content Include="web_resources\css\slimmenu.css" />
+    <Content Include="web_resources\css\styles.css" />
+    <Content Include="web_resources\images\bgnoise_lg.png" />
+    <Content Include="web_resources\images\Thumbs.db" />
+    <Content Include="web_resources\js\jquery.dataTables.js" />
+    <Content Include="web_resources\js\jquery-1.7.1.min.js" />
+    <Content Include="web_resources\js\jquery-1.9.1.js" />
+    <Content Include="web_resources\js\jquery-ui-1.10.3.custom.js" />
+    <Content Include="web_resources\js\jquery.js" />
+    <Content Include="web_resources\js\modernizr-2.0.6.min.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
