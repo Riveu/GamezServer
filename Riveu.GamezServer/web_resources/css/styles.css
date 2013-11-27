@@ -1,0 +1,63 @@
+@charset 'UTF-8';
+/* Starter CSS for Flyout Menu */
+#cssmenu,
+#cssmenu ul,
+#cssmenu li #cssmenu a {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  font-family: Helvetica;
+  line-height: 1;
+}
+#cssmenu {
+  width: auto;
+}
+#cssmenu ul {
+  zoom: 1;
+  background: #f56a00 url(images/pattern.png) top left repeat;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #a94900;
+  -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+}
+#cssmenu ul:before {
+  content: '';
+  display: block;
+}
+#cssmenu ul:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+#cssmenu a,
+#cssmenu a:link,
+#cssmenu a:visited {
+  padding: 15px 20px;
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+  text-shadow: 0 -1px 1px #5c2800;
+  border-right: 1px solid #a94900;
+}
+#cssmenu a:hover {
+  color: #5c2800;
+  text-shadow: 0 1px 1px #ff8629;
+}
+#cssmenu li {
+  float: left;
+  border-right: 1px solid #ff7710;
+}
+#cssmenu li:hover {
+  background: #dc5f00 url(images/pattern.png) top left repeat;
+}
+#cssmenu li:first-child {
+  border-left: none;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}

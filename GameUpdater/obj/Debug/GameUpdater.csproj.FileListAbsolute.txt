@@ -1,0 +1,5 @@
+C:\Users\Michael Dlesk\Documents\GitHub\GamezServer\GameUpdater\bin\Debug\GameUpdater.exe
+C:\Users\Michael Dlesk\Documents\GitHub\GamezServer\GameUpdater\bin\Debug\GameUpdater.pdb
+C:\Users\Michael Dlesk\Documents\GitHub\GamezServer\GameUpdater\obj\Debug\GameUpdater.csprojResolveAssemblyReference.cache
+C:\Users\Michael Dlesk\Documents\GitHub\GamezServer\GameUpdater\obj\Debug\GameUpdater.exe
+C:\Users\Michael Dlesk\Documents\GitHub\GamezServer\GameUpdater\obj\Debug\GameUpdater.pdb
