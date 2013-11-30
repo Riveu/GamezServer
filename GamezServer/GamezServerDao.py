@@ -17,10 +17,41 @@ class GamezServerDao(object):
 
     def GetGames(self, dbFile):
         conn = sqlite3.connect(dbFile)
-        comm = "select CoverArtUri,GameTitle,GameDevID,GameDescription,ConsoleName,ReleaseDate,Status,Location from games inner join MASTER_GAMES INNER JOIN CONSOLES ON GAMES.MasterGameID=MASTER_GAMES.MasterGameID AND MASTER_GAMES.ConsoleID = CONSOLES.ConsoleID WHERE GAMES.IsDeleted=0 AND MASTER_GAMES.IsDeleted=0 AND CONSOLES.IsDeleted=0"
+        comm = "select CoverArtUri,GameTitle,GameDevID,GameDescription,ConsoleName,ReleaseDate,Status,Location,GameID from games inner join MASTER_GAMES INNER JOIN CONSOLES ON GAMES.MasterGameID=MASTER_GAMES.MasterGameID AND MASTER_GAMES.ConsoleID = CONSOLES.ConsoleID WHERE GAMES.IsDeleted=0 AND MASTER_GAMES.IsDeleted=0 AND CONSOLES.IsDeleted=0"
         result = conn.execute(comm).fetchall()
         conn.close()
         return result
+
+    def GetWantedGames(self, dbFile):
+        conn = sqlite3.connect(dbFile)
+        comm = "select CoverArtUri,GameTitle,GameDevID,GameDescription,ConsoleName,ReleaseDate,Status,Location,GameID from games inner join MASTER_GAMES INNER JOIN CONSOLES ON GAMES.MasterGameID=MASTER_GAMES.MasterGameID AND MASTER_GAMES.ConsoleID = CONSOLES.ConsoleID WHERE GAMES.IsDeleted=0 AND MASTER_GAMES.IsDeleted=0 AND CONSOLES.IsDeleted=0 AND GAMES.Status='Wanted'"
+        result = conn.execute(comm).fetchall()
+        conn.close()
+        return result
+
+    def UpdateGameStatus(self, dbFile, gameId,status):
+        conn = sqlite3.connect(dbFile)
+        comm = "UPDATE GAMES SET Status='" + str(status) + "' WHERE GameID=" + str(gameId) + " AND IsDeleted=0"
+        conn.execute(comm)
+        conn.commit()
+        conn.close()
+        return
+
+    def DeleteGame(self, dbFile, gameId):
+        conn = sqlite3.connect(dbFile)
+        comm = "UPDATE GAMES SET IsDeleted=1 WHERE GameID=" + str(gameId) + " AND IsDeleted=0"
+        conn.execute(comm)
+        conn.commit()
+        conn.close()
+        return
+
+    def UpdateGameLocation(self, dbFile, gameId,location):
+        conn = sqlite3.connect(dbFile)
+        comm = "UPDATE GAMES SET Location='" + str(location) + "' WHERE GameID=" + str(gameId) + " AND IsDeleted=0"
+        conn.execute(comm)
+        conn.commit()
+        conn.close()
+        return
 
     def GetMasterGames(self, dbFile):
         conn = sqlite3.connect(dbFile)

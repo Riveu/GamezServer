@@ -131,7 +131,10 @@
     <Compile Include="cherrypy\_cpwsgi_server.py" />
     <Compile Include="cherrypy\__init__.py" />
     <Compile Include="GamezServer.py" />
+    <Compile Include="GamezServer\Constants.py" />
+    <Compile Include="GamezServer\GameSearcher.py" />
     <Compile Include="GamezServer\GamezServerDao.py" />
+    <Compile Include="GamezServer\GamezServerUpdater.py" />
     <Compile Include="GamezServer\Logger.py" />
     <Compile Include="GamezServer\RiveuServer.py" />
     <Compile Include="GamezServer\__init__.py" />
@@ -147,6 +150,7 @@
     <Folder Include="cherrypy\tutorial\" />
     <Folder Include="cherrypy\wsgiserver\" />
     <Folder Include="GamezServer\" />
+    <Folder Include="GamezServer\postprocess\" />
     <Folder Include="web_resources\" />
     <Folder Include="web_resources\css\" />
     <Folder Include="web_resources\css\excite-bike\" />
