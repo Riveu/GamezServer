@@ -5,6 +5,8 @@ import json
 from distutils.version import LooseVersion
 import tarfile
 import shutil
+import os
+import urllib2
 
 class GamezServerUpdater(object):
     """description of class"""
@@ -47,16 +49,16 @@ class GamezServerUpdater(object):
     def Update(self,appPath):
         logger = GamezServer.Logger.Logger(self.logfile)
         logger.Log("Updating to latest version")
-        ilesToIgnore = ["Gamez.ini","Gamez.db"]
+        filesToIgnore = ["Gamez.ini","Gamez.db"]
         filesToIgnoreSet     = set(filesToIgnore)
-        updatePath = os.path.join(app_path,"update")
+        updatePath = os.path.join(appPath,"update")
         if not os.path.exists(updatePath):     
             os.makedirs(updatePath)
-        latestVersion = se;f.GetLatestVersion()
+        latestVersion = self.GetLatestVersion()
         tagUrl = "https://github.com/Riveu/GamezServer/tarball/v" + latestVersion
         logger.Log("Downloading from GitHub")
         data = urllib2.urlopen(tagUrl)
-        downloadPath = os.path.join(app_path,data.geturl().split('/')[-1])
+        downloadPath = os.path.join(appPath,data.geturl().split('/')[-1])
         downloadedFile = open(downloadPath,'wb')
         downloadedFile.write(data.read())
         downloadedFile.close()
@@ -72,12 +74,11 @@ class GamezServerUpdater(object):
             dirname = dirname[len(updatedFilesPath)+1:]
             for file in filenames:
                 src = os.path.join(updatedFilesPath,dirname,file)
-                dest = os.path.join(app_path,dirname,file)
+                dest = os.path.join(appPath,dirname,file)
                 if((file in filesToIgnoreSet) == True):
                     continue
                 if(os.path.isfile(dest)):
                     os.remove(dest)
                 os.renames(src,dest)
-        shutil.rmtree(updatePath) 
         logger.Log("Upgrading Complete")
         return "Successfully Upgraded to Version " + latestVersion
