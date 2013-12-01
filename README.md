@@ -19,6 +19,6 @@ Current Features:
 
 ***Dependencies***
 
-Gamez requires Python and CherryPY. The CherryPy module is included with Gamez Server. Python must be installed on the system on which Gamez Server will be ran. The default port is 6000
+Gamez requires Python and CherryPY. The CherryPy module is included with Gamez Server. Python must be installed on the system on which Gamez Server will be ran. The default port is 5000
 
 <hr />
