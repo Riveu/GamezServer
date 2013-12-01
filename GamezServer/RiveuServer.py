@@ -16,7 +16,6 @@ class RiveuServer(object):
         dao = GamezServerDao.GamezServerDao()
         for console in webFile.split('\n'):
             if(len(console) > 0):
-                logger.Log('Adding Console: ' + console)
                 dao.AddConsole(self.dbfile, console.replace("\r",""))
         return
 
