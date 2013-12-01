@@ -8,7 +8,7 @@ status = str(sys.argv[7])
 downloadStatus = 'Wanted'
 if(status == '0'):
     downloadStatus = 'Downloaded'
-url = "http://127.0.0.1:6000/updatestatus?game_id=" + gamezID + "&filePath=" + urllib.quote(filePath) + "&status=" + downloadStatus
+url = "http://127.0.0.1:5000/updatestatus?game_id=" + gamezID + "&filePath=" + urllib.quote(filePath) + "&status=" + downloadStatus
 responseObject = urllib.FancyURLopener({}).open(url)
 responseObject.read()
 responseObject.close()

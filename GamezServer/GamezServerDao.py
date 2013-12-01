@@ -85,20 +85,32 @@ class GamezServerDao(object):
         conn.close()
 
     def AddConsole(self, dbFile, console):
+        insertedId = None
         conn = sqlite3.connect(dbFile)
+        cursor = conn.cursor()
         comm = "INSERT OR IGNORE INTO CONSOLES(ConsoleName) VALUES('" + console.replace("'","''") + "');"
-        conn.execute(comm)
+        cursor.execute(comm)
         conn.commit()
+        insertedId = cursor.lastrowid
         conn.close()
-        return
+        if(insertedId <> None):
+            message = 'Adding Console: ' + console
+            self.Log(dbFile, message)
+            print(message)
 
     def AddGame(self, dbFile, gameId = None, gameTitle=None, gameDescription=None, releaseDate=None, coverArtUri=None, console=None):
+        insertedId = None
         conn = sqlite3.connect(dbFile)
+        cursor=conn.cursor()
         comm = "INSERT OR IGNORE INTO MASTER_GAMES(GameDevID,GameTitle,GameDescription,ConsoleID,ReleaseDate,CoverArtUri) VALUES('" + gameId + "','" + gameTitle.replace("'","''") + "','" + gameDescription.replace("'","''") + "',(SELECT ConsoleID FROM CONSOLES WHERE ConsoleName='" + console.replace("'","''") + "' AND IsDeleted=0),'" + releaseDate + "','" + coverArtUri + "');"
-        conn.execute(comm)
+        cursor.execute(comm)
         conn.commit()
+        insertedId = cursor.lastrowid
         conn.close()
-        return
+        if(insertedId <> None):
+            message = 'Adding Game: ' + gameTitle + ' - ' + console
+            self.Log(dbFile, message)
+            print(message)
 
     def GetConsoles(self, dbFile):
         conn = sqlite3.connect(dbFile)

@@ -23,7 +23,9 @@ class RunWebServer(object):
         content = content + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
         content = content + "<html>"
         content = content + "   <head>"
-        content = content + "       <title>Gamez Server :: Log</title>"
+        content = content + "       <title>Gamez Server :: Home</title>"
+        content = content + "       <link rel=\"shortcut icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
+        content = content + "       <link rel=\"icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
         content = content + "       <link href=\"css/excite-bike/jquery-ui-1.10.3.custom.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/styles.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/demo_table_jui.css\" type=\"text/css\" rel=\"stylesheet\">"
@@ -89,7 +91,9 @@ class RunWebServer(object):
         content = content + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
         content = content + "<html>"
         content = content + "   <head>"
-        content = content + "       <title>Gamez Server :: Log</title>"
+        content = content + "       <title>Gamez Server :: Master Games</title>"
+        content = content + "       <link rel=\"shortcut icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
+        content = content + "       <link rel=\"icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
         content = content + "       <link href=\"css/excite-bike/jquery-ui-1.10.3.custom.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/styles.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/demo_table_jui.css\" type=\"text/css\" rel=\"stylesheet\">"
@@ -132,7 +136,9 @@ class RunWebServer(object):
         content = content + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
         content = content + "<html>"
         content = content + "   <head>"
-        content = content + "       <title>Gamez Server :: Settings</title>"
+        content = content + "       <title>Gamez Server :: Add Game</title>"
+        content = content + "       <link rel=\"shortcut icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
+        content = content + "       <link rel=\"icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
         content = content + "       <link href=\"css/excite-bike/jquery-ui-1.10.3.custom.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/styles.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <script src=\"js/jquery-1.9.1.js\" type=\"text/javascript\"></script>"
@@ -205,6 +211,8 @@ class RunWebServer(object):
         content = content + "<html>"
         content = content + "   <head>"
         content = content + "       <title>Gamez Server :: Log</title>"
+        content = content + "       <link rel=\"shortcut icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
+        content = content + "       <link rel=\"icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
         content = content + "       <link href=\"css/excite-bike/jquery-ui-1.10.3.custom.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/styles.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/demo_table_jui.css\" type=\"text/css\" rel=\"stylesheet\">"
@@ -261,6 +269,8 @@ class RunWebServer(object):
         content = content + "<html>"
         content = content + "   <head>"
         content = content + "       <title>Gamez Server :: Settings</title>"
+        content = content + "       <link rel=\"shortcut icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
+        content = content + "       <link rel=\"icon\" href=\"/images/favicon.ico\" type=\"image/x-icon\">"
         content = content + "       <link href=\"css/excite-bike/jquery-ui-1.10.3.custom.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <link href=\"css/styles.css\" type=\"text/css\" rel=\"stylesheet\">"
         content = content + "       <script src=\"js/jquery-1.9.1.js\" type=\"text/javascript\"></script>"
@@ -401,10 +411,17 @@ class RunWebServer(object):
         raise cherrypy.InternalRedirect('/?redirect=statusupdated')
 
 def RunGameSearch():
-        logger.Log('Running Game Search')
-        searcher = GamezServer.GameSearcher.GameSearcher(dbfile, conffile)
-        searcher.start()
-        return
+    logger.Log('Running Game Search')
+    searcher = GamezServer.GameSearcher.GameSearcher(dbfile, conffile)
+    searcher.start()
+    return
+
+def RunGameDBUpdater():
+    logger.Log('Updating Console List')
+    riveuServer = GamezServer.RiveuServer.RiveuServer(dbfile)
+    riveuServer.UpdateConsoles()
+    logger.Log('Updating Games List')
+    riveuServer.UpdateGames()
 
 def GenerateSabPostProcessScript():
     config = ConfigParser.RawConfigParser()
@@ -465,7 +482,7 @@ if(os.path.exists(conffile) == False):
     config = ConfigParser.RawConfigParser()
     config.add_section('global')
     config.set('global', 'server.socket_host', "'127.0.0.1'")
-    config.set('global', 'server.socket_port', '6000')
+    config.set('global', 'server.socket_port', '5000')
     config.add_section('GamezServer')
     config.set('GamezServer', 'EnableAuth', '0')
     config.set('GamezServer', 'AuthUsername', "''")
@@ -498,11 +515,7 @@ conf = {
 dao = GamezServer.GamezServerDao.GamezServerDao()
 if(os.path.exists(dbfile) == False):
     dao.InitializeDB(dbfile)
-logger.Log('Updating Console List')
-riveuServer = GamezServer.RiveuServer.RiveuServer(dbfile)
-riveuServer.UpdateConsoles()
-logger.Log('Updating Games List')
-riveuServer.UpdateGames()
+    RunGameDBUpdater()
 GenerateSabPostProcessScript()
 logger.Log('Configuring Web Server')
 cherrypy.config.update(conffile)
@@ -515,6 +528,7 @@ if hasattr(cherrypy.engine, "console_control_handler"):
     cherrypy.engine.console_control_handler.subscribe()
 logger.Log("Starting Web Server")
 RunGameSearch()
-Monitor(cherrypy.engine, RunGameSearch, 300).subscribe()
+Monitor(cherrypy.engine, RunGameSearch, 3600).subscribe()
+Monitor(cherrypy.engine, RunGameDBUpdater, 86400).subscribe()
 cherrypy.engine.start()
 cherrypy.engine.block()
