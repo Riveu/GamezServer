@@ -61,7 +61,7 @@ class RunWebServer(object):
         content = content + "       </div>"
         content = content + "       <script>$(function() {$('#logGrid').dataTable({\"bJQueryUI\": true, \"sPaginationType\": \"full_numbers\"});});</script>"
         content = content + "       <div id=\"statusmessage\" style=\"position:fixed;bottom:0;padding:0 5px;line-height:25px;background-color:#eeee99;margin-bottom:-25px;font-weight:bold;left:0;right:0;\"></div>"
-        content = content + "       <div id=\"versionstatusmessage\" style=\"position:fixed;bottom:0;padding:0 5px;line-height:25px;background-color:#eeee99;margin-bottom:-25px;font-weight:bold;left:0;right:0;\"><label>A new version of GamezServer is available</label>&nbsp;&nbsp;&nbsp;<button onclick=\"window.location='/upgradegamezserver';return false;\">Upgrade Now</button></div>"
+        content = content + "       <div id=\"versionstatusmessage\" style=\"position:fixed;bottom:0;padding:0 5px;line-height:25px;background-color:#eeee99;margin-bottom:-25px;font-weight:bold;left:0;right:0;\"><label>A new version of GamezServer is available</label>&nbsp;&nbsp;&nbsp;<button onclick=\"window.location='/updategamezserver';return false;\">Upgrade Now</button></div>"
         if(updater.CheckForNewVersion()):
              content = content + "<script>$('#versionstatusmessage').animate({'margin-bottom':0},200);setTimeout( function(){$('#versionstatusmessage').animate({'margin-bottom':-25},200);}, 500*1000);</script>"
         if(redirect=='gameadded'):
