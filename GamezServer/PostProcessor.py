@@ -18,6 +18,7 @@ class PostProcessor(object):
         dao = GamezServer.GamezServerDao.GamezServerDao()
         self.logger.Log("Running Post Processing")
         dest = ""
+        
         if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Nintendo Wii'):
             config = ConfigParser.RawConfigParser()
             config.read(self.conffile)
@@ -27,6 +28,18 @@ class PostProcessor(object):
                 self.logger.Log("Wii Game Detected. Getting Wii Destination Path")
                 dest = wiiPostProcessingPath
                 dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
+            else:
+                return sourceFile
+        
+            if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Sony Playstation 3'):
+                config = ConfigParser.RawConfigParser()
+                config.read(self.conffile)
+                enablePS3PostProcessing = config.get('PostProcessing','EnablePS3PostProcessing').replace("'","")
+                ps3PostProcessingPath = config.get('PostProcessing','PS3DestinationPath').replace("'","").replace("\\\\","\\")
+                if(enablePS3PostProcessing == "1" and ps3PostProcessingPath <> ""):
+                    self.logger.Log("PS3 Game Detected. Getting PS3 Destination Path")
+                    dest = wiiPostProcessingPath
+                    dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
             else:
                 return sourceFile
         if(dest <> ""):

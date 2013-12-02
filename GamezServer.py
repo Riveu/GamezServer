@@ -262,6 +262,7 @@ class RunWebServer(object):
         enableSabnzbdChecked = ""
         enableRiveuNotificationsChecked = ""
         enableWiiPostProcessingChecked = ""
+        enablePS3PostProcessingChecked = ""
 
         if(config.get('GamezServer','EnableAuth') == "1"):
             enableAuthChecked = "checked"
@@ -273,6 +274,9 @@ class RunWebServer(object):
             enableRiveuNotificationsChecked = "checked"
         if(config.get('PostProcessing','EnableWiiPostProcessing') == "1"):
             enableWiiPostProcessingChecked = "checked"
+        if(config.get('PostProcessing','EnablePS3PostProcessing') == "1"):
+            enablePS3PostProcessingChecked = "checked"
+
         content = ""
         content = content + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
         content = content + "<html>"
@@ -371,6 +375,18 @@ class RunWebServer(object):
         content = content + "                                       </table>"
         content = content + "                                   </fieldset>"
         content = content + "                               </div>"
+        content = content + "                               <br />"
+        content = content + "                               <div>"
+        content = content + "                                   <fieldset class=\"ui-widget ui-widget-content\">"
+        content = content + "                                       <legend class=\"ui-widget-header ui-corner-all\">"
+        content = content + "                                           <div>Sony Playstation 4</div>"
+        content = content + "                                       </legend>"
+        content = content + "                                       <table style=\"width:100%\">"
+        content = content + "                                           <tr><td><div class=\"field\" style=\"width:10%\"><label>Enable</label></td><td style=\"width:90%\"><input name=\"enablePS3PostProcessing\" " + enablePS3PostProcessingChecked + " type=\"checkbox\"></div></td></tr>"
+        content = content + "                                           <tr><td><div class=\"field\"><label>Destination Path:</label></td><td><input name=\"ps3DestinationPath\" value=\"" + config.get('PostProcessing','PS3DestinationPath').replace("'","").replace('\\\\','\\') + "\" type=\"text\" style=\"width:75%\"></div></td></tr>"
+        content = content + "                                       </table>"
+        content = content + "                                   </fieldset>"
+        content = content + "                               </div>"
         content = content + "                           </div>"
         content = content + "                       </div>"    
         content = content + ""; 
@@ -394,7 +410,7 @@ class RunWebServer(object):
         return content
 
     @cherrypy.expose
-    def saveSettings(self,host=None,port=None,enableAuth=None,authUsername=None,authPassword=None,enableUsenetCrawler=None,usenetCrawlerApi=None,enableSabnzbd=None,sabnzbdUrl=None,sabnzbdApiKey=None,sabnzbdCategory=None,enableRiveuNotifications=None,riveuNotificationsUsername=None,riveuNotificationsPassword=None,enableWiiPostProcessing=None,wiiDestinationPath=None):
+    def saveSettings(self,host=None,port=None,enableAuth=None,authUsername=None,authPassword=None,enableUsenetCrawler=None,usenetCrawlerApi=None,enableSabnzbd=None,sabnzbdUrl=None,sabnzbdApiKey=None,sabnzbdCategory=None,enableRiveuNotifications=None,riveuNotificationsUsername=None,riveuNotificationsPassword=None,enableWiiPostProcessing=None,wiiDestinationPath=None,enablePS3PostProcessing=None,ps3DestinationPath=None):
         if(enableAuth == 'on'):
             enableAuth = '1'
         else:
@@ -420,6 +436,11 @@ class RunWebServer(object):
         else:
             enableWiiPostProcessing = '0'
 
+        if(enablePS3PostProcessing == 'on'):
+            enablePS3PostProcessing = '1'
+        else:
+            enablePS3PostProcessing = '0'
+
         config = ConfigParser.RawConfigParser()
         config.add_section('global')
         config.set('global', 'server.socket_host', "'" + host + "'")
@@ -443,6 +464,8 @@ class RunWebServer(object):
         config.add_section('PostProcessing')
         config.set('PostProcessing', 'EnableWiiPostProcessing', enableWiiPostProcessing)
         config.set('PostProcessing', 'WiiDestinationPath', "'" + str(wiiDestinationPath).replace('\\','\\\\') + "'")
+        config.set('PostProcessing', 'EnablePS3PostProcessing', enablePS3PostProcessing)
+        config.set('PostProcessing', 'PS3DestinationPath', "'" + str(ps3DestinationPath).replace('\\','\\\\') + "'")
         with open(conffile, 'wb') as configfile:
             config.write(configfile)
         raise cherrypy.HTTPRedirect("/settings?redirect=settingssaved")
@@ -602,12 +625,17 @@ def CheckConfig():
         config.add_section('PostProcessing')
         config.set('PostProcessing', 'EnableWiiPostProcessing', "0")
         config.set('PostProcessing', 'WiiDestinationPath', "''")
+        config.set('PostProcessing', 'EnablePS3PostProcessing', "0")
+        config.set('PostProcessing', 'PS3DestinationPath', "''")
     else:
         if not config.has_option('PostProcessing', 'EnableWiiPostProcessing'):
             config.set('PostProcessing', 'EnableWiiPostProcessing', '0')
         if not config.has_option('PostProcessing', 'WiiDestinationPath'):
             config.set('PostProcessing', 'WiiDestinationPath', "''")
-        
+        if not config.has_option('PostProcessing', 'EnablePS3PostProcessing'):
+            config.set('PostProcessing', 'EnablePS3PostProcessing', '0')
+        if not config.has_option('PostProcessing', 'PS3DestinationPath'):
+            config.set('PostProcessing', 'PS3DestinationPath', "''")     
 
     with open(conffile, 'wb') as configfile:
         config.write(configfile)
