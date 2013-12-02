@@ -21,4 +21,6 @@ Current Features:
 
 Gamez requires Python and CherryPY. The CherryPy module is included with Gamez Server. Python must be installed on the system on which Gamez Server will be ran. The default port is 5000
 
+There is a post processing script that will be generated after you run the application and whenever you change the settings, such as host and port number. This will be located under the GamezServer => PostProcess subfolder. The script will need to be copied to your scripts directory that Sabnzbd looks at in order to properly have statuses updated, as well as for the post processing to work.
+
 <hr />
