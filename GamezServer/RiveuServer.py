@@ -1,4 +1,5 @@
 import urllib2
+import urllib
 import GamezServerDao
 import Logger
 
@@ -34,6 +35,12 @@ class RiveuServer(object):
                 releaseDate = gameAttributes[3]
                 coverArt = gameAttributes[4]
                 console = gameAttributes[5]
-                logger.Log('Adding Game: ' + gameTitle + " - " + console)
                 dao.AddGame(self.dbfile, gameId, gameTitle, gameDescription, releaseDate, coverArt, console.replace("\r",""))
         return
+
+    def SendNotification(self, message, username, password):
+        data = "CMD=SEND_NOTIFICATION&Username=" + username + "&Password=" + password + "&Message=" + urllib.quote_plus(message)
+        url = 'http://riveu.com/API.aspx?' + data
+        responseObject = urllib.FancyURLopener({}).open(url)
+        responseObject.read()
+        responseObject.close()

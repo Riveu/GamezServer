@@ -119,6 +119,13 @@ class GamezServerDao(object):
         conn.close()
         return result
 
+    def GetGameTitle(self, dbFile, gameId):
+        conn = sqlite3.connect(dbFile)
+        comm = "SELECT MASTER_GAMES.GameTitle,CONSOLES.ConsoleName FROM GAMES INNER JOIN MASTER_GAMES INNER JOIN CONSOLES ON GAMES.MasterGameID = MASTER_GAMES.MasterGameID AND MASTER_GAMES.ConsoleID = CONSOLES.ConsoleID WHERE GAMES.IsDeleted=0 AND MASTER_GAMES.IsDeleted=0 AND CONSOLES.IsDeleted=0 AND GAMES.GameID=" + gameId
+        result = conn.execute(comm).fetchone()
+        conn.close()
+        return result
+
     def AddWantedGame(self, dbFile, console, gameTitle):
         conn = sqlite3.connect(dbFile)
         comm = "INSERT INTO GAMES (MasterGameID,Status) VALUES((SELECT MasterGameID FROM MASTER_GAMES WHERE GameTitle='" + str(gameTitle) + "' AND ConsoleID=(SELECT ConsoleID FROM CONSOLES WHERE ConsoleName='" + str(console) + "' AND IsDeleted=0) AND IsDeleted=0),'Wanted')"
