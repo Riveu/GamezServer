@@ -7,6 +7,7 @@ import GamezServer.PostProcessor
 import GamezServer.Logger
 import GamezServer.GameSearcher
 import sys
+from GamezServer import Constants
 from cherrypy.process.plugins import Monitor
 from GamezServer import GamezServerUpdater
 
@@ -39,7 +40,7 @@ class RunWebServer(object):
         content = content + "       <div id=\"container\" style=\"width: 100%; margin: 0px auto 0;\">"
         content = content + "           <table width=\"100%\" style=\"padding:15px\">"
         content = content + "               <tr><td><table><tr><td><img src=\"images/logo.png\" alt=\"Riveu Logo\" /></td><td><div style=\"color:Orange;font-family: Lucida Handwriting;font-size: XX-Large\">Gamez Server</div></td></tr></table></td></tr>"
-        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li></ul></div></td></tr>"
+        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li><div style=\"text-align:right;padding: 15px 20px;color: #ffffff;text-shadow: 0 -1px 1px #5c2800;font-size: 14px;font-family: Helvetica;\">Version: " + str(version) + "</div></ul></div></td></tr>"
         content = content + "               <tr>";
         content = content + "                   <td>"
         content = content + "                       <table id=\"logGrid\" width=\"100%\" class=\"display\"><thead><tr><th>Cover</th><th>Game Title</th><th>Game ID</th><th>Game Description</th><th>Console</th><th>Release Date</th><th>Status</th><th>Location</th><th>Commands</th></tr></thead><tbody>"
@@ -52,7 +53,7 @@ class RunWebServer(object):
                     statusDropDown = "<select onchange=\"window.location = '/updatestatus?game_id=" + gameId + "&filePath=&status=' + this.value;\"><option value=\"Downloaded\">Downloaded</option><option value=\"Snatched\" selected>Snatched</option><option value=\"Wanted\">Wanted</option></select>"
                 if(statusValue == 'Downloaded'):
                     statusDropDown = "<select onchange=\"window.location = '/updatestatus?game_id=" + gameId + "&filePath=&status=' + this.value;\"><option value=\"Downloaded\" selected>Downloaded</option><option value=\"Snatched\">Snatched</option><option value=\"Wanted\">Wanted</option></select>"
-                content = content + "                       <tr><td><image width\"50%\" height=\"50%\" src=\"" + str(row[0]) + "\" alt=\"Cover Image\" /></td><td>" + str(row[1]) + "</td><td>" + str(row[2]) + "</td><td>" + str(row[3]) + "</td><td>" + str(row[4]) + "</td><td>" + str(row[5]) + "</td><td>" + statusDropDown + "</td><td>" + str(row[7]) + "</td><td><a href=\"/deletegame?game_id=" + gameId + "\">Delete</a></td></tr>"
+                content = content + "                       <tr><td><image  onError=\"this.onerror=null;this.src='images/noCoverArt.gif';\" style=\"width:125px;height:200px\" src=\"" + str(row[0]) + "\" alt=\"Cover Image\" /></td><td>" + str(row[1]) + "</td><td>" + str(row[2]) + "</td><td>" + str(row[3]) + "</td><td>" + str(row[4]) + "</td><td>" + str(row[5]) + "</td><td>" + statusDropDown + "</td><td>" + str(row[7]) + "</td><td><a href=\"/deletegame?game_id=" + gameId + "\">Delete</a></td></tr>"
             except:
                 logger.Log("Unable to show game because there is unicode error in description: " + str(row[1]))
         content = content + "                       </tbody></table>"
@@ -107,7 +108,7 @@ class RunWebServer(object):
         content = content + "       <div id=\"container\" style=\"width: 100%; margin: 0px auto 0;\">"
         content = content + "           <table width=\"100%\" style=\"padding:15px\">"
         content = content + "               <tr><td><table><tr><td><img src=\"images/logo.png\" alt=\"Riveu Logo\" /></td><td><div style=\"color:Orange;font-family: Lucida Handwriting;font-size: XX-Large\">Gamez Server</div></td></tr></table></td></tr>"
-        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li></ul></div></td></tr>"
+        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li><div style=\"text-align:right;padding: 15px 20px;color: #ffffff;text-shadow: 0 -1px 1px #5c2800;font-size: 14px;font-family: Helvetica;\">Version: " + str(version) + "</div></ul></div></td></tr>"
         content = content + "               <tr>";
         content = content + "                   <td>"
         content = content + "                       <table id=\"gamesGrid\" width=\"100%\" class=\"display\"><thead><tr><th>Cover</th><th>Game Title</th><th>Game ID</th><th>Game Description</th><th>Release Date</th><th>Console</th></tr></thead><tbody>"
@@ -116,7 +117,7 @@ class RunWebServer(object):
                 dateValue = str(row[4])
                 if(dateValue == '//'):
                     dateValue = 'Unkown'
-                content = content + "                       <tr><td><image width\"50%\" height=\"50%\" src=\"" + str(row[5]) + "\" alt=\"Cover Image\" /></td><td>" + str(row[1]) + "</td><td>" + str(row[0]) + "</td><td>" + str(row[2]) + "</td><td>" + dateValue + "</td><td>" + str(row[3]) + "</td></tr>"
+                content = content + "                       <tr><td><img src=\"" + str(row[5]) + "\" onError=\"this.onerror=null;this.src='images/noCoverArt.gif';\" style=\"width:125px;height:200px\" /></td><td>" + str(row[1]) + "</td><td>" + str(row[0]) + "</td><td>" + str(row[2]) + "</td><td>" + dateValue + "</td><td>" + str(row[3]) + "</td></tr>"
             except:
                 logger.Log("Unable to show game because there is unicode error in description: " + str(row[1]))
         content = content + "                       </tbody></table>"
@@ -152,7 +153,7 @@ class RunWebServer(object):
         content = content + "       <div id=\"container\" style=\"width: 100%; margin: 0px auto 0;\">"
         content = content + "           <table width=\"100%\" style=\"padding:15px\">"
         content = content + "               <tr><td><table><tr><td><img src=\"images/logo.png\" alt=\"Riveu Logo\" /></td><td><div style=\"color:Orange;font-family: Lucida Handwriting;font-size: XX-Large\">Gamez Server</div></td></tr></table></td></tr>"
-        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li></ul></div></td></tr>"
+        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li><div style=\"text-align:right;padding: 15px 20px;color: #ffffff;text-shadow: 0 -1px 1px #5c2800;font-size: 14px;font-family: Helvetica;\">Version: " + str(version) + "</div></ul></div></td></tr>"
         content = content + "               <tr>";
         content = content + "                   <td>"
         content = content + "                       <div id=\"addgame-tabs\"><ul><li><a href=\"#addgame-tab\">Add Game</a></li></ul>"
@@ -227,7 +228,7 @@ class RunWebServer(object):
         content = content + "       <div id=\"container\" style=\"width: 100%; margin: 0px auto 0;\">"
         content = content + "           <table width=\"100%\" style=\"padding:15px\">"
         content = content + "               <tr><td><table><tr><td><img src=\"images/logo.png\" alt=\"Riveu Logo\" /></td><td><div style=\"color:Orange;font-family: Lucida Handwriting;font-size: XX-Large\">Gamez Server</div></td></tr></table></td></tr>"
-        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li></ul></div></td></tr>"
+        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li><div style=\"text-align:right;padding: 15px 20px;color: #ffffff;text-shadow: 0 -1px 1px #5c2800;font-size: 14px;font-family: Helvetica;\">Version: " + str(version) + "</div></ul></div></td></tr>"
         content = content + "               <tr>";
         content = content + "                   <td>"
         content = content + "                       <table id=\"logGrid\" width=\"100%\" class=\"display\"><thead><tr><th>Date/Time</th><th>Message</th></tr></thead><tbody>"
@@ -296,7 +297,7 @@ class RunWebServer(object):
         content = content + "       <div id=\"container\" style=\"width: 100%; margin: 0px auto 0;\">"
         content = content + "           <table width=\"100%\" style=\"padding:15px\">"
         content = content + "               <tr><td><table><tr><td><img src=\"images/logo.png\" alt=\"Riveu Logo\" /></td><td><div style=\"color:Orange;font-family: Lucida Handwriting;font-size: XX-Large\">Gamez Server</div></td></tr></table></td></tr>"
-        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li></ul></div></td></tr>"
+        content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li><div style=\"text-align:right;padding: 15px 20px;color: #ffffff;text-shadow: 0 -1px 1px #5c2800;font-size: 14px;font-family: Helvetica;\">Version: " + str(version) + "</div></ul></div></td></tr>"
         content = content + "               <tr>";
         content = content + "                   <td>"
         content = content + "                       <div id=\"settings-tabs\"><ul><li><a href=\"#general-tab\">General</a></li><li><a href=\"#downloaders-tab\">Downloaders</a></li><li><a href=\"#searchers-tab\">Search Providers</a></li><li><a href=\"#notifications-tab\">Notifications</a></li><li><a href=\"#postprocessing-tab\">Post Processing</a></li></ul>"
@@ -379,7 +380,7 @@ class RunWebServer(object):
         content = content + "                               <div>"
         content = content + "                                   <fieldset class=\"ui-widget ui-widget-content\">"
         content = content + "                                       <legend class=\"ui-widget-header ui-corner-all\">"
-        content = content + "                                           <div>Sony Playstation 4</div>"
+        content = content + "                                           <div>Sony Playstation 3</div>"
         content = content + "                                       </legend>"
         content = content + "                                       <table style=\"width:100%\">"
         content = content + "                                           <tr><td><div class=\"field\" style=\"width:10%\"><label>Enable</label></td><td style=\"width:90%\"><input name=\"enablePS3PostProcessing\" " + enablePS3PostProcessingChecked + " type=\"checkbox\"></div></td></tr>"
@@ -640,6 +641,7 @@ def CheckConfig():
     with open(conffile, 'wb') as configfile:
         config.write(configfile)
 
+version = Constants.VersionNumber()
 app_path = os.path.join(os.path.dirname(__file__))
 conffile = os.path.join(app_path,'GamezServer.ini')
 dbfile = os.path.join(app_path,'Gamez.db')
