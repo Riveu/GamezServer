@@ -10,6 +10,7 @@ import sys
 from GamezServer import Constants
 from cherrypy.process.plugins import Monitor
 from GamezServer import GamezServerUpdater
+import thread
 
 class RunWebServer(object):
 
@@ -36,10 +37,10 @@ class RunWebServer(object):
         content = content + "       <script src=\"js/jquery.dataTables.js\" type=\"text/javascript\"></script>"
         content = content + "   </head>"
         content = content + "   <body style=\"background: url(/images/bgnoise_lg.png) repeat left top;width:100%\">"
-        content = content + "   <form method=\"post\">"
+        content = content + "   <form method=\"post\" action=\"https://www.paypal.com/cgi-bin/webscr\">"
         content = content + "       <div id=\"container\" style=\"width: 100%; margin: 0px auto 0;\">"
         content = content + "           <table width=\"100%\" style=\"padding:15px\">"
-        content = content + "               <tr><td><table><tr><td><img src=\"images/logo.png\" alt=\"Riveu Logo\" /></td><td><div style=\"color:Orange;font-family: Lucida Handwriting;font-size: XX-Large\">Gamez Server</div></td></tr></table></td></tr>"
+        content = content + "               <tr width=\"100%\"><td width=\"100%\"><table width=\"100%\"><tr width=\"100%\"><td width=\"80px\"><img src=\"images/logo.png\" alt=\"Riveu Logo\" /></td><td><div style=\"color:Orange;font-family: Lucida Handwriting;font-size: XX-Large\">Gamez Server</div></td><td><div style=\"float:right;\"><input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\"><input type=\"hidden\" name=\"hosted_button_id\" value=\"SPK7EYG47DHZ4\"><input type=\"image\" src=\"https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" alt=\"Donate\"><img alt=\"\" border=\"0\" src=\"https://www.paypalobjects.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\"></div></td></tr></table></td></tr>"
         content = content + "               <tr width=\"100%\"><td><div id='cssmenu'><ul>   <li class='active'><a href='/'><span>Home</span></a></li><li><a href='/addgame'><span>Add Game</span></a></li> <li><a href='/mastergames'><span>Master Game List</span></a></li>  <li><a href='/settings'><span>Settings</span></a></li><li class='last'><a href='/log'><span>Log</span></a></li><li class='last'><a href='http://www.riveu.com/support.aspx' target='_blank'><span>Support</span></a></li><div style=\"text-align:right;padding: 15px 20px;color: #ffffff;text-shadow: 0 -1px 1px #5c2800;font-size: 14px;font-family: Helvetica;\">Version: " + str(version) + "</div></ul></div></td></tr>"
         content = content + "               <tr>";
         content = content + "                   <td>"
@@ -197,7 +198,7 @@ class RunWebServer(object):
         if(console <> ""):
             game = str(game).replace(" - " + console, "")
             dao.AddWantedGame(dbfile,console,game)
-            RunGameSearch()
+            thread.start_new_thread(RunGameSearch, ())
         raise cherrypy.HTTPRedirect("/?redirect=gameadded")
 
     def stop(self):
@@ -264,6 +265,7 @@ class RunWebServer(object):
         enableRiveuNotificationsChecked = ""
         enableWiiPostProcessingChecked = ""
         enablePS3PostProcessingChecked = ""
+        enableXBOX360PostProcessingChecked = ""
 
         if(config.get('GamezServer','EnableAuth') == "1"):
             enableAuthChecked = "checked"
@@ -277,6 +279,8 @@ class RunWebServer(object):
             enableWiiPostProcessingChecked = "checked"
         if(config.get('PostProcessing','EnablePS3PostProcessing') == "1"):
             enablePS3PostProcessingChecked = "checked"
+        if(config.get('PostProcessing','EnableXBOX360PostProcessing') == "1"):
+            enableXBOX360PostProcessingChecked = "checked"
 
         content = ""
         content = content + "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
@@ -368,6 +372,18 @@ class RunWebServer(object):
         content = content + "                               <div>"
         content = content + "                                   <fieldset class=\"ui-widget ui-widget-content\">"
         content = content + "                                       <legend class=\"ui-widget-header ui-corner-all\">"
+        content = content + "                                           <div>Microsoft XBOX 360</div>"
+        content = content + "                                       </legend>"
+        content = content + "                                       <table style=\"width:100%\">"
+        content = content + "                                           <tr><td><div class=\"field\" style=\"width:10%\"><label>Enable</label></td><td style=\"width:90%\"><input name=\"enableXBOX360PostProcessing\" " + enableXBOX360PostProcessingChecked + " type=\"checkbox\"></div></td></tr>"
+        content = content + "                                           <tr><td><div class=\"field\"><label>Destination Path:</label></td><td><input name=\"xbox360DestinationPath\" value=\"" + config.get('PostProcessing','XBOX360DestinationPath').replace("'","").replace('\\\\','\\') + "\" type=\"text\" style=\"width:75%\"></div></td></tr>"
+        content = content + "                                       </table>"
+        content = content + "                                   </fieldset>"
+        content = content + "                               </div>"
+        content = content + "                               <br />"
+        content = content + "                               <div>"
+        content = content + "                                   <fieldset class=\"ui-widget ui-widget-content\">"
+        content = content + "                                       <legend class=\"ui-widget-header ui-corner-all\">"
         content = content + "                                           <div>Nintendo Wii</div>"
         content = content + "                                       </legend>"
         content = content + "                                       <table style=\"width:100%\">"
@@ -411,7 +427,7 @@ class RunWebServer(object):
         return content
 
     @cherrypy.expose
-    def saveSettings(self,host=None,port=None,enableAuth=None,authUsername=None,authPassword=None,enableUsenetCrawler=None,usenetCrawlerApi=None,enableSabnzbd=None,sabnzbdUrl=None,sabnzbdApiKey=None,sabnzbdCategory=None,enableRiveuNotifications=None,riveuNotificationsUsername=None,riveuNotificationsPassword=None,enableWiiPostProcessing=None,wiiDestinationPath=None,enablePS3PostProcessing=None,ps3DestinationPath=None):
+    def saveSettings(self,host=None,port=None,enableAuth=None,authUsername=None,authPassword=None,enableUsenetCrawler=None,usenetCrawlerApi=None,enableSabnzbd=None,sabnzbdUrl=None,sabnzbdApiKey=None,sabnzbdCategory=None,enableRiveuNotifications=None,riveuNotificationsUsername=None,riveuNotificationsPassword=None,enableWiiPostProcessing=None,wiiDestinationPath=None,enablePS3PostProcessing=None,ps3DestinationPath=None,enableXBOX360PostProcessing=None,xbox360DestinationPath=None):
         if(enableAuth == 'on'):
             enableAuth = '1'
         else:
@@ -442,6 +458,11 @@ class RunWebServer(object):
         else:
             enablePS3PostProcessing = '0'
 
+        if(enableXBOX360PostProcessing == 'on'):
+            enableXBOX360PostProcessing = '1'
+        else:
+            enableXBOX360PostProcessing = '0'
+
         config = ConfigParser.RawConfigParser()
         config.add_section('global')
         config.set('global', 'server.socket_host', "'" + host + "'")
@@ -467,6 +488,8 @@ class RunWebServer(object):
         config.set('PostProcessing', 'WiiDestinationPath', "'" + str(wiiDestinationPath).replace('\\','\\\\') + "'")
         config.set('PostProcessing', 'EnablePS3PostProcessing', enablePS3PostProcessing)
         config.set('PostProcessing', 'PS3DestinationPath', "'" + str(ps3DestinationPath).replace('\\','\\\\') + "'")
+        config.set('PostProcessing', 'EnableXBOX360PostProcessing', enableXBOX360PostProcessing)
+        config.set('PostProcessing', 'XBOX360DestinationPath', "'" + str(xbox360DestinationPath).replace('\\','\\\\') + "'")
         with open(conffile, 'wb') as configfile:
             config.write(configfile)
         raise cherrypy.HTTPRedirect("/settings?redirect=settingssaved")
@@ -637,6 +660,10 @@ def CheckConfig():
             config.set('PostProcessing', 'EnablePS3PostProcessing', '0')
         if not config.has_option('PostProcessing', 'PS3DestinationPath'):
             config.set('PostProcessing', 'PS3DestinationPath', "''")     
+        if not config.has_option('PostProcessing', 'EnableXBOX360PostProcessing'):
+            config.set('PostProcessing', 'EnableXBOX360PostProcessing', '0')
+        if not config.has_option('PostProcessing', 'XBOX360DestinationPath'):
+            config.set('PostProcessing', 'XBOX360DestinationPath', "''")  
 
     with open(conffile, 'wb') as configfile:
         config.write(configfile)
@@ -683,8 +710,9 @@ if hasattr(cherrypy.engine, "signal_handler"):
 if hasattr(cherrypy.engine, "console_control_handler"):
     cherrypy.engine.console_control_handler.subscribe()
 logger.Log("Starting Web Server")
-RunGameSearch()
 Monitor(cherrypy.engine, RunGameSearch, 3600).subscribe()
 Monitor(cherrypy.engine, RunGameDBUpdater, 86400).subscribe()
 cherrypy.engine.start()
+thread.start_new_thread(RunGameDBUpdater, ())
+thread.start_new_thread(RunGameSearch, ())
 cherrypy.engine.block()

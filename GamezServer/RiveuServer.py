@@ -29,12 +29,12 @@ class RiveuServer(object):
         for game in webFile.split('\n'):
             if(len(game) > 0):
                 gameAttributes = game.split('::||::')
-                gameId = gameAttributes[0]
-                gameTitle = gameAttributes[1]
-                gameDescription = gameAttributes[2]
-                releaseDate = gameAttributes[3]
-                coverArt = gameAttributes[4]
-                console = gameAttributes[5]
+                gameId = gameAttributes[0].decode("utf-8").replace(u'\ufeff','').replace(u'\xa0',' ').replace(u'\xb7','').replace(u'\xb2','').replace(u'\u2161','').replace(u'\u2164','')
+                gameTitle = str(gameAttributes[1]).decode("utf-8").replace(u'\ufeff','').replace(u'\xa0',' ').replace(u'\xb7','').replace(u'\xb2','').replace(u'\u2161','').replace(u'\u2164','')
+                gameDescription = str(gameAttributes[2]).decode("utf-8").replace(u'\ufeff','').replace(u'\xa0',' ').replace(u'\xb7','').replace(u'\xb2','').replace(u'\u2161','').replace(u'\u2164','')
+                releaseDate = str(gameAttributes[3]).decode("utf-8").replace(u'\ufeff','').replace(u'\xa0',' ').replace(u'\xb7','').replace(u'\xb2','').replace(u'\u2161','').replace(u'\u2164','')
+                coverArt = str(gameAttributes[4]).decode("utf-8").replace(u'\ufeff','').replace(u'\xa0',' ').replace(u'\xb7','').replace(u'\xb2','').replace(u'\u2161','').replace(u'\u2164','')
+                console = str(gameAttributes[5]).decode("utf-8").replace(u'\ufeff','').replace(u'\xa0',' ').replace(u'\xb7','').replace(u'\xb2','').replace(u'\u2161','').replace(u'\u2164','')
                 dao.AddGame(self.dbfile, gameId, gameTitle, gameDescription, releaseDate, coverArt, console.replace("\r",""))
         return
 

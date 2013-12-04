@@ -18,6 +18,18 @@ class PostProcessor(object):
         dao = GamezServer.GamezServerDao.GamezServerDao()
         self.logger.Log("Running Post Processing")
         dest = ""
+
+        if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Microsoft XBOX 360'):
+            config = ConfigParser.RawConfigParser()
+            config.read(self.conffile)
+            enableXBOX360PostProcessing = config.get('PostProcessing','EnableXBOX360PostProcessing').replace("'","")
+            xbox360PostProcessingPath = config.get('PostProcessing','XBOX360DestinationPath').replace("'","").replace("\\\\","\\")
+            if(enableXBOX360PostProcessing == "1" and xbox360PostProcessingPath <> ""):
+                self.logger.Log("XBOX 360 Game Detected. Getting XBOX360 Destination Path")
+                dest = wiiPostProcessingPath
+                dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
+        else:
+            return sourceFile
         
         if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Nintendo Wii'):
             config = ConfigParser.RawConfigParser()
@@ -31,17 +43,17 @@ class PostProcessor(object):
             else:
                 return sourceFile
         
-            if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Sony Playstation 3'):
-                config = ConfigParser.RawConfigParser()
-                config.read(self.conffile)
-                enablePS3PostProcessing = config.get('PostProcessing','EnablePS3PostProcessing').replace("'","")
-                ps3PostProcessingPath = config.get('PostProcessing','PS3DestinationPath').replace("'","").replace("\\\\","\\")
-                if(enablePS3PostProcessing == "1" and ps3PostProcessingPath <> ""):
-                    self.logger.Log("PS3 Game Detected. Getting PS3 Destination Path")
-                    dest = wiiPostProcessingPath
-                    dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
-            else:
-                return sourceFile
+        if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Sony Playstation 3'):
+            config = ConfigParser.RawConfigParser()
+            config.read(self.conffile)
+            enablePS3PostProcessing = config.get('PostProcessing','EnablePS3PostProcessing').replace("'","")
+            ps3PostProcessingPath = config.get('PostProcessing','PS3DestinationPath').replace("'","").replace("\\\\","\\")
+            if(enablePS3PostProcessing == "1" and ps3PostProcessingPath <> ""):
+                self.logger.Log("PS3 Game Detected. Getting PS3 Destination Path")
+                dest = wiiPostProcessingPath
+                dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
+        else:
+            return sourceFile
         if(dest <> ""):
             self.logger.Log("Moving file(s) (" + sourceFile + ") => (" + dest + ")")
             result = self.MoveFile(sourceFile, dest)
