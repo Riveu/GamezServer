@@ -10,6 +10,7 @@ import sys
 from GamezServer import Constants
 from cherrypy.process.plugins import Monitor
 from GamezServer import GamezServerUpdater
+import thread
 
 class RunWebServer(object):
 
@@ -197,7 +198,7 @@ class RunWebServer(object):
         if(console <> ""):
             game = str(game).replace(" - " + console, "")
             dao.AddWantedGame(dbfile,console,game)
-            RunGameSearch()
+            thread.start_new_thread(RunGameSearch, ())
         raise cherrypy.HTTPRedirect("/?redirect=gameadded")
 
     def stop(self):
@@ -709,9 +710,9 @@ if hasattr(cherrypy.engine, "signal_handler"):
 if hasattr(cherrypy.engine, "console_control_handler"):
     cherrypy.engine.console_control_handler.subscribe()
 logger.Log("Starting Web Server")
-RunGameSearch()
 Monitor(cherrypy.engine, RunGameSearch, 3600).subscribe()
 Monitor(cherrypy.engine, RunGameDBUpdater, 86400).subscribe()
 cherrypy.engine.start()
-RunGameDBUpdater()
+thread.start_new_thread(RunGameDBUpdater, ())
+thread.start_new_thread(RunGameSearch, ())
 cherrypy.engine.block()

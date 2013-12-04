@@ -23,7 +23,7 @@ class RiveuServer(object):
     def UpdateGames(self):
         logger = Logger.Logger(self.dbfile)
         logger.Log('Downloading Games List')
-        url = 'http://www.riveu.com/GamezServer/devgames.txt'
+        url = 'http://www.riveu.com/GamezServer/games.txt'
         webFile = urllib2.urlopen(url).read()
         dao = GamezServerDao.GamezServerDao()
         for game in webFile.split('\n'):
