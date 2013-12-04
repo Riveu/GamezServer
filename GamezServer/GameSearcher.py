@@ -65,6 +65,12 @@ class GameSearcher(object):
             enable = True
         if(enable and len(apiKey) > 0):
             cat = "1000"
+            if(console == "Nintendo Wii"):
+                cat = "1030"
+            if(console == "Microsoft XBOX 360"):
+                cat = "1050"
+            if(console == "Sony Playstation 3"):
+                cat = "1080"
             downloadGuid = ""
             nzbName = ""
             isGameFound = False

@@ -102,7 +102,7 @@ class GamezServerDao(object):
         insertedId = None
         conn = sqlite3.connect(dbFile)
         cursor=conn.cursor()
-        comm = "INSERT OR IGNORE INTO MASTER_GAMES(GameDevID,GameTitle,GameDescription,ConsoleID,ReleaseDate,CoverArtUri) VALUES('" + gameId + "','" + gameTitle.replace("'","''") + "','" + gameDescription.replace("'","''") + "',(SELECT ConsoleID FROM CONSOLES WHERE ConsoleName='" + console.replace("'","''") + "' AND IsDeleted=0),'" + releaseDate + "','" + coverArtUri + "');"
+        comm = "INSERT OR IGNORE INTO MASTER_GAMES(GameDevID,GameTitle,GameDescription,ConsoleID,ReleaseDate,CoverArtUri) VALUES('" + str(gameId).replace("'","''") + "','" + gameTitle.replace("'","''") + "','" + gameDescription.replace("'","''") + "',(SELECT ConsoleID FROM CONSOLES WHERE ConsoleName='" + console.replace("'","''") + "' AND IsDeleted=0),'" + releaseDate + "','" + str(coverArtUri).replace("'","''") + "');"
         cursor.execute(comm)
         conn.commit()
         insertedId = cursor.lastrowid
