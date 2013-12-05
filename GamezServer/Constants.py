@@ -1,2 +1,2 @@
 def VersionNumber():
-    return "1.4.1.0"
+    return "1.4.2.0"
