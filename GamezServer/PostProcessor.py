@@ -26,10 +26,22 @@ class PostProcessor(object):
             xbox360PostProcessingPath = config.get('PostProcessing','XBOX360DestinationPath').replace("'","").replace("\\\\","\\")
             if(enableXBOX360PostProcessing == "1" and xbox360PostProcessingPath <> ""):
                 self.logger.Log("XBOX 360 Game Detected. Getting XBOX360 Destination Path")
-                dest = wiiPostProcessingPath
+                dest = xbox360PostProcessingPath
                 dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
         else:
             return sourceFile
+
+        if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Nintendo DS'):
+            config = ConfigParser.RawConfigParser()
+            config.read(self.conffile)
+            enableNDSPostProcessing = config.get('PostProcessing','EnableNDSPostProcessing').replace("'","")
+            ndsPostProcessingPath = config.get('PostProcessing','NDSDestinationPath').replace("'","").replace("\\\\","\\")
+            if(enableNDSPostProcessing == "1" and ndsPostProcessingPath <> ""):
+                self.logger.Log("NDS Game Detected. Getting NDS Destination Path")
+                dest = ndsPostProcessingPath
+                dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
+            else:
+                return sourceFile
         
         if(str(dao.GetGameTitle(self.dbfile, self.gameId)[1]) == 'Nintendo Wii'):
             config = ConfigParser.RawConfigParser()
@@ -50,7 +62,7 @@ class PostProcessor(object):
             ps3PostProcessingPath = config.get('PostProcessing','PS3DestinationPath').replace("'","").replace("\\\\","\\")
             if(enablePS3PostProcessing == "1" and ps3PostProcessingPath <> ""):
                 self.logger.Log("PS3 Game Detected. Getting PS3 Destination Path")
-                dest = wiiPostProcessingPath
+                dest = ps3PostProcessingPath
                 dest = os.path.join(dest, str(dao.GetGameTitle(self.dbfile, self.gameId)[0]))
         else:
             return sourceFile
@@ -83,7 +95,7 @@ class PostProcessor(object):
             os.makedirs(destination)
         for root, dirs, filenames in os.walk(source):
             for f in filenames:
-                if(str(f).endswith(".wad") or str(f).endswith(".iso") or str(f).endswith(".wbfs")):
+                if(str(f).upper().endswith(".WAD") or str(f).upper().endswith(".ISO") or str(f).upper().endswith(".WBFS") or str(f).upper().endswith(".NDS")):
                     self.logger.Log("File Found: " + str(f))
                     shutil.move(os.path.join(root,f), os.path.join(destination, f))
                     fileCount = fileCount + 1

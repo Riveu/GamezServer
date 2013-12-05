@@ -133,3 +133,19 @@ class GamezServerDao(object):
         conn.commit()
         conn.close()
         return
+
+    def BulkAddByConsole(self, dbFile, console):
+        masterGameList = self.GetMasterGames(dbFile)
+        gameList = self.GetGames(dbFile)
+        for row in masterGameList:
+            masterConsole = str(row[3])
+            if(masterConsole == console):
+                masterTitle = str(row[1])
+                gameExists = False
+                for game in gameList:
+                    gameConsole = str(game[4])
+                    gameTitle = str(game[1])
+                    if(gameConsole == masterConsole and gameTitle == masterTitle):
+                        gameExists = True
+                if(gameExists == False):
+                    self.AddWantedGame(dbFile, console, masterTitle.replace("'","''"))

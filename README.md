@@ -7,7 +7,7 @@ Gamez Server is currently in *Alpha* release. There may be bugs in the applicati
 
 Gamez Server is an automated downloader for video games. The user adds the games they wish to download and Gamez will attempt to find the game and download it.
 
-While all games are technically implemented, as of the current release, only Wii games are loaded to the server. More systems will be added in the coming days (This will not require a new release)
+While all games are technically implemented, as of the current release, only Wii, XBOX 360, and PS3 games are loaded to the server. More systems will be added in the coming days (This will not require a new release)
 
 Current Features:
 
