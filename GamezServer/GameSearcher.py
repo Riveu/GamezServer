@@ -71,6 +71,8 @@ class GameSearcher(object):
                 cat = "1050"
             if(console == "Sony Playstation 3"):
                 cat = "1080"
+            if(console == "Nintendo DS"):
+                cat = "1010"
             downloadGuid = ""
             nzbName = ""
             isGameFound = False
